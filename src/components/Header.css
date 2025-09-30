@@ -1,0 +1,35 @@
+.header {
+  height: 48px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .header {
+    background-color: #1f2937;
+    border-bottom-color: #374151;
+  }
+  
+  .header-title {
+    color: #f9fafb;
+  }
+}
