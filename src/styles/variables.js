@@ -1,5 +1,5 @@
 // CSS 变量工具函数
-export const getCSSVariable = (variableName) => {
+export const getCSSVariable = variableName => {
   if (typeof window !== 'undefined') {
     return getComputedStyle(document.documentElement)
       .getPropertyValue(variableName)
@@ -116,7 +116,7 @@ export const toggleTheme = () => {
   if (typeof window !== 'undefined') {
     const html = document.documentElement;
     const isDark = html.classList.contains('dark');
-    
+
     if (isDark) {
       html.classList.remove('dark');
       localStorage.setItem('theme', 'light');
@@ -131,8 +131,10 @@ export const toggleTheme = () => {
 export const initTheme = () => {
   if (typeof window !== 'undefined') {
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       document.documentElement.classList.add('dark');
     }
@@ -142,7 +144,9 @@ export const initTheme = () => {
 // 获取当前主题
 export const getCurrentTheme = () => {
   if (typeof window !== 'undefined') {
-    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    return document.documentElement.classList.contains('dark')
+      ? 'dark'
+      : 'light';
   }
   return 'light';
 };
