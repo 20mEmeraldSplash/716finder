@@ -1,10 +1,1 @@
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
+/* App 组件现在使用 Tailwind CSS 类，这个文件保留用于自定义样式 */
