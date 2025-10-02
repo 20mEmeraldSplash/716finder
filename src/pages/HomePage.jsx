@@ -1,18 +1,26 @@
+import LostFoundPreview from '../components/LostFoundPreview';
+
 function HomePage() {
   return (
     <div className='min-h-screen bg-purple-50 dark:bg-purple-900'>
       <div className='container mx-auto px-4 py-8'>
-        <div className='max-w-4xl mx-auto'>
+        <div className='max-w-6xl mx-auto'>
           {/* 欢迎区域 */}
           <div className='text-center mb-12'>
             <h1 className='text-4xl font-bold text-gray-900 dark:text-white mb-4'>
               欢迎来到 716Finder
             </h1>
-            <p className='text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto'>
-              这是一个现代化的 React 应用，集成了 Tailwind CSS、React Router
-              和完整的开发工具链。
+            <p className='text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6'>
+              这是一个现代化的失物招领平台，帮助您找回丢失的物品或归还捡到的物品。
             </p>
+            <div className='flex justify-center space-x-4'>
+              <button className='btn btn-primary'>发布丢失信息</button>
+              <button className='btn btn-secondary'>发布捡到信息</button>
+            </div>
           </div>
+
+          {/* Lost&Found 数据预览 */}
+          <LostFoundPreview />
 
           {/* 功能展示区域 */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12'>
@@ -33,10 +41,10 @@ function HomePage() {
                 </svg>
               </div>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>
-                快速开发
+                快速发布
               </h3>
               <p className='text-gray-600 dark:text-gray-300'>
-                使用 Vite + React 构建，开发体验极佳
+                简单几步即可发布丢失或捡到信息
               </p>
             </div>
 
@@ -52,15 +60,21 @@ function HomePage() {
                     strokeLinecap='round'
                     strokeLinejoin='round'
                     strokeWidth={2}
-                    d='M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z'
+                    d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
+                  />
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
                   />
                 </svg>
               </div>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>
-                响应式设计
+                地图定位
               </h3>
               <p className='text-gray-600 dark:text-gray-300'>
-                完美适配各种设备尺寸
+                精确显示物品丢失或捡到的位置
               </p>
             </div>
 
@@ -76,15 +90,15 @@ function HomePage() {
                     strokeLinecap='round'
                     strokeLinejoin='round'
                     strokeWidth={2}
-                    d='M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
+                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
                   />
                 </svg>
               </div>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>
-                深色模式
+                智能搜索
               </h3>
               <p className='text-gray-600 dark:text-gray-300'>
-                支持明暗主题切换
+                按类别、位置、时间等条件筛选
               </p>
             </div>
           </div>
