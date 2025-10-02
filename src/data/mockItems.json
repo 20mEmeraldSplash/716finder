@@ -1,0 +1,234 @@
+[
+  {
+    "id": "item-001",
+    "status": "lost",
+    "title": "丢失的 AirPods Pro",
+    "category": "electronics",
+    "description": "黑色 AirPods Pro，带有充电盒。在中央公园附近丢失，可能是在跑步时掉落的。充电盒上有小划痕。",
+    "photos": [
+      "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400",
+      "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"
+    ],
+    "lastSeenAt": "2024-01-15T14:30:00Z",
+    "coordinates": {
+      "latitude": 40.7829,
+      "longitude": -73.9654
+    },
+    "zipcode": "10024",
+    "createdAt": "2024-01-15T15:00:00Z",
+    "contact": {
+      "name": "张三",
+      "email": "zhangsan@email.com",
+      "phone": "+86-138-0013-8000",
+      "preferredContact": "phone"
+    }
+  },
+  {
+    "id": "item-002",
+    "status": "found",
+    "title": "捡到的红色钱包",
+    "category": "accessories",
+    "description": "在咖啡店门口捡到一个红色皮质钱包，里面有身份证和几张银行卡。希望失主尽快联系。",
+    "photos": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"
+    ],
+    "lastSeenAt": "2024-01-14T09:15:00Z",
+    "coordinates": {
+      "latitude": 40.7505,
+      "longitude": -73.9934
+    },
+    "zipcode": "10001",
+    "createdAt": "2024-01-14T09:30:00Z",
+    "contact": {
+      "name": "李四",
+      "email": "lisi@email.com",
+      "phone": "+86-139-0013-9000",
+      "preferredContact": "email"
+    }
+  },
+  {
+    "id": "item-003",
+    "status": "lost",
+    "title": "丢失的黑色背包",
+    "category": "accessories",
+    "description": "黑色双肩背包，里面装有笔记本电脑和重要文件。在地铁站丢失，非常着急。",
+    "photos": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"
+    ],
+    "lastSeenAt": "2024-01-13T18:45:00Z",
+    "coordinates": {
+      "latitude": 40.7589,
+      "longitude": -73.9851
+    },
+    "zipcode": "10019",
+    "createdAt": "2024-01-13T19:00:00Z",
+    "contact": {
+      "name": "王五",
+      "email": "wangwu@email.com",
+      "phone": "+86-137-0013-7000",
+      "preferredContact": "both"
+    }
+  },
+  {
+    "id": "item-004",
+    "status": "found",
+    "title": "捡到的金毛犬",
+    "category": "pets",
+    "description": "在公园里发现一只走失的金毛犬，很温顺，戴着红色项圈。希望主人尽快联系。",
+    "photos": [
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400",
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400"
+    ],
+    "lastSeenAt": "2024-01-12T16:20:00Z",
+    "coordinates": {
+      "latitude": 40.7831,
+      "longitude": -73.9712
+    },
+    "zipcode": "10025",
+    "createdAt": "2024-01-12T16:30:00Z",
+    "contact": {
+      "name": "赵六",
+      "email": "zhaoliu@email.com",
+      "phone": "+86-136-0013-6000",
+      "preferredContact": "phone"
+    }
+  },
+  {
+    "id": "item-005",
+    "status": "lost",
+    "title": "丢失的 iPhone 15",
+    "category": "electronics",
+    "description": "深空黑色 iPhone 15，128GB。在商场购物时丢失，手机壳是透明的。",
+    "photos": [
+      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400"
+    ],
+    "lastSeenAt": "2024-01-11T20:10:00Z",
+    "coordinates": {
+      "latitude": 40.7614,
+      "longitude": -73.9776
+    },
+    "zipcode": "10022",
+    "createdAt": "2024-01-11T20:30:00Z",
+    "contact": {
+      "name": "孙七",
+      "email": "sunqi@email.com",
+      "phone": "+86-135-0013-5000",
+      "preferredContact": "phone"
+    }
+  },
+  {
+    "id": "item-006",
+    "status": "found",
+    "title": "捡到的学生证",
+    "category": "documents",
+    "description": "在图书馆捡到一张学生证，姓名：陈八，学号：2021001234。请失主联系认领。",
+    "photos": [
+      "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400"
+    ],
+    "lastSeenAt": "2024-01-10T14:00:00Z",
+    "coordinates": {
+      "latitude": 40.7505,
+      "longitude": -73.9934
+    },
+    "zipcode": "10001",
+    "createdAt": "2024-01-10T14:15:00Z",
+    "contact": {
+      "name": "周九",
+      "email": "zhoujiu@email.com",
+      "preferredContact": "email"
+    }
+  },
+  {
+    "id": "item-007",
+    "status": "lost",
+    "title": "丢失的自行车",
+    "category": "sports",
+    "description": "蓝色山地自行车，前轮有白色条纹。在小区门口丢失，车锁被剪断。",
+    "photos": [
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400",
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400"
+    ],
+    "lastSeenAt": "2024-01-09T08:30:00Z",
+    "coordinates": {
+      "latitude": 40.7282,
+      "longitude": -73.7949
+    },
+    "zipcode": "11375",
+    "createdAt": "2024-01-09T09:00:00Z",
+    "contact": {
+      "name": "吴十",
+      "email": "wushi@email.com",
+      "phone": "+86-134-0013-4000",
+      "preferredContact": "both"
+    }
+  },
+  {
+    "id": "item-008",
+    "status": "found",
+    "title": "捡到的钥匙串",
+    "category": "keys",
+    "description": "在公交站捡到一串钥匙，有5把钥匙和一个蓝色钥匙扣。",
+    "photos": [
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400"
+    ],
+    "lastSeenAt": "2024-01-08T17:45:00Z",
+    "coordinates": {
+      "latitude": 40.7505,
+      "longitude": -73.9934
+    },
+    "zipcode": "10001",
+    "createdAt": "2024-01-08T18:00:00Z",
+    "contact": {
+      "name": "郑十一",
+      "email": "zhengshiyi@email.com",
+      "phone": "+86-133-0013-3000",
+      "preferredContact": "phone"
+    }
+  },
+  {
+    "id": "item-009",
+    "status": "lost",
+    "title": "丢失的眼镜",
+    "category": "accessories",
+    "description": "黑色金属框架眼镜，度数较深。在餐厅用餐时丢失，非常需要。",
+    "photos": [
+      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400"
+    ],
+    "lastSeenAt": "2024-01-07T19:20:00Z",
+    "coordinates": {
+      "latitude": 40.7505,
+      "longitude": -73.9934
+    },
+    "zipcode": "10001",
+    "createdAt": "2024-01-07T19:30:00Z",
+    "contact": {
+      "name": "王十二",
+      "email": "wangshier@email.com",
+      "phone": "+86-132-0013-2000",
+      "preferredContact": "email"
+    }
+  },
+  {
+    "id": "item-010",
+    "status": "found",
+    "title": "捡到的书籍",
+    "category": "books",
+    "description": "在公园长椅上发现一本《JavaScript高级程序设计》，书页有些折痕。",
+    "photos": [
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
+    ],
+    "lastSeenAt": "2024-01-06T15:30:00Z",
+    "coordinates": {
+      "latitude": 40.7831,
+      "longitude": -73.9712
+    },
+    "zipcode": "10025",
+    "createdAt": "2024-01-06T15:45:00Z",
+    "contact": {
+      "name": "李十三",
+      "email": "lishisan@email.com",
+      "preferredContact": "email"
+    }
+  }
+]
