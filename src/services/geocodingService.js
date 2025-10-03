@@ -10,7 +10,7 @@ import axios from 'axios';
 export async function geocodeAddress(query) {
   try {
     if (!query.trim()) {
-      throw new Error('请输入有效的地址或邮编');
+      throw new Error('Please enter a valid address or ZIP code');
     }
 
     const response = await axios.get(
@@ -38,23 +38,57 @@ export async function geocodeAddress(query) {
         address: result.address,
       };
     } else {
-      throw new Error('未找到该地址或邮编');
+      throw new Error('Address or ZIP code not found');
     }
   } catch (error) {
-    console.error('地理编码错误:', error);
-    throw new Error(error.message || '地理编码失败');
+    console.error('Geocoding error:', error);
+    throw new Error(error.message || 'Geocoding failed');
   }
 }
 
 /**
- * 验证邮编格式
+ * 验证美国邮编格式
  * @param {string} zipcode - 邮编
  * @returns {boolean}
  */
 export function isValidZipcode(zipcode) {
-  // 美国邮编格式: 5位数字或5位数字-4位数字
+  // 美国邮编格式: 5位数字 (ZIP+4 格式也支持)
   const zipcodeRegex = /^\d{5}(-\d{4})?$/;
-  return zipcodeRegex.test(zipcode);
+  return zipcodeRegex.test(zipcode.trim());
+}
+
+/**
+ * 获取邮编验证错误信息
+ * @param {string} zipcode - 邮编
+ * @returns {string|null} 错误信息或null
+ */
+export function getZipcodeValidationError(zipcode) {
+  if (!zipcode || !zipcode.trim()) {
+    return null; // 空值不显示错误
+  }
+
+  const trimmed = zipcode.trim();
+
+  // 检查是否只包含数字和连字符
+  if (!/^[\d-]+$/.test(trimmed)) {
+    return 'ZIP code must contain only numbers and hyphens';
+  }
+
+  // 检查长度
+  if (trimmed.length < 5) {
+    return 'ZIP code must be at least 5 digits';
+  }
+
+  if (trimmed.length > 10) {
+    return 'ZIP code cannot exceed 10 characters';
+  }
+
+  // 检查格式
+  if (!isValidZipcode(trimmed)) {
+    return 'Please enter a valid US ZIP code (e.g., 10024 or 10024-1234)';
+  }
+
+  return null;
 }
 
 /**
