@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {
   geocodeAddress,
+  getZipcodeValidationError,
   isValidAddress,
-  isValidZipcode,
 } from '../services/geocodingService';
 
 function SearchBar({ onLocationUpdate }) {
@@ -21,18 +21,20 @@ function SearchBar({ onLocationUpdate }) {
       const searchQuery = zipcode.trim() || location.trim();
 
       if (!searchQuery) {
-        setError('请输入邮编或地址');
+        setError('Please enter a ZIP code or address');
         return;
       }
 
-      // 验证输入
-      if (zipcode && !isValidZipcode(zipcode)) {
-        setError('请输入有效的美国邮编格式 (如: 10024)');
+      // 验证邮编（仅在搜索时验证）
+      const zipcodeValidationError = getZipcodeValidationError(zipcode);
+      if (zipcodeValidationError) {
+        setError(zipcodeValidationError);
         return;
       }
 
+      // 验证地址
       if (location && !isValidAddress(location)) {
-        setError('请输入有效的地址');
+        setError('Please enter a valid address');
         return;
       }
 
@@ -52,6 +54,19 @@ function SearchBar({ onLocationUpdate }) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // 处理邮编输入变化
+  const handleZipcodeChange = e => {
+    const value = e.target.value;
+    setZipcode(value);
+    setError(''); // 清除搜索错误
+  };
+
+  // 处理地址输入变化
+  const handleLocationChange = e => {
+    setLocation(e.target.value);
+    setError(''); // 清除搜索错误
   };
 
   return (
@@ -80,7 +95,7 @@ function SearchBar({ onLocationUpdate }) {
               <input
                 type='text'
                 value={location}
-                onChange={e => setLocation(e.target.value)}
+                onChange={handleLocationChange}
                 placeholder='Search for a location'
                 className='w-full text-base border-none outline-none bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500'
               />
@@ -115,7 +130,7 @@ function SearchBar({ onLocationUpdate }) {
               <input
                 type='text'
                 value={zipcode}
-                onChange={e => setZipcode(e.target.value)}
+                onChange={handleZipcodeChange}
                 placeholder='Enter Zip Code'
                 className='w-full text-base border-none outline-none bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500'
               />
@@ -127,6 +142,7 @@ function SearchBar({ onLocationUpdate }) {
               onClick={() => {
                 setZipcode('');
                 setLocation('');
+                setError('');
               }}
               className='p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 flex-shrink-0'
             >
