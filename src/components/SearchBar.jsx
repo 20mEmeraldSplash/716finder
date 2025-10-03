@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   geocodeAddress,
   getZipcodeValidationError,
@@ -10,6 +10,70 @@ function SearchBar({ onLocationUpdate }) {
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // 从 URL 参数初始化搜索条件
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlZipcode = urlParams.get('zip');
+    const urlLocation = urlParams.get('location');
+
+    if (urlZipcode) {
+      setZipcode(urlZipcode);
+    }
+    if (urlLocation) {
+      setLocation(urlLocation);
+    }
+
+    // 如果有 URL 参数，自动执行搜索
+    if (urlZipcode || urlLocation) {
+      handleSearchFromURL(urlZipcode, urlLocation);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 更新 URL 参数
+  const updateURLParams = (newZipcode, newLocation) => {
+    const url = new URL(window.location);
+    const params = url.searchParams;
+
+    if (newZipcode) {
+      params.set('zip', newZipcode);
+    } else {
+      params.delete('zip');
+    }
+
+    if (newLocation) {
+      params.set('location', newLocation);
+    } else {
+      params.delete('location');
+    }
+
+    // 更新 URL 但不刷新页面
+    window.history.replaceState({}, '', url.toString());
+  };
+
+  // 从 URL 参数执行搜索
+  const handleSearchFromURL = async (urlZipcode, urlLocation) => {
+    const searchQuery = urlZipcode || urlLocation;
+    if (!searchQuery) return;
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const result = await geocodeAddress(searchQuery);
+      if (onLocationUpdate) {
+        onLocationUpdate({
+          latitude: result.latitude,
+          longitude: result.longitude,
+          displayName: result.display_name,
+        });
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = async e => {
     e.preventDefault();
@@ -49,6 +113,9 @@ function SearchBar({ onLocationUpdate }) {
           displayName: result.display_name,
         });
       }
+
+      // 更新 URL 参数
+      updateURLParams(zipcode, location);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -143,6 +210,8 @@ function SearchBar({ onLocationUpdate }) {
                 setZipcode('');
                 setLocation('');
                 setError('');
+                // 清除 URL 参数
+                updateURLParams('', '');
               }}
               className='p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 flex-shrink-0'
             >
