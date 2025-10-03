@@ -1,13 +1,57 @@
 import { useState } from 'react';
+import {
+  geocodeAddress,
+  isValidAddress,
+  isValidZipcode,
+} from '../services/geocodingService';
 
-function SearchBar() {
+function SearchBar({ onLocationUpdate }) {
   const [zipcode, setZipcode] = useState('');
   const [location, setLocation] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSearch = e => {
+  const handleSearch = async e => {
     e.preventDefault();
-    // TODO: 实现搜索逻辑
-    // console.log('搜索:', { zipcode, location });
+    setError('');
+    setIsLoading(true);
+
+    try {
+      // 优先使用邮编，如果没有邮编则使用位置描述
+      const searchQuery = zipcode.trim() || location.trim();
+
+      if (!searchQuery) {
+        setError('请输入邮编或地址');
+        return;
+      }
+
+      // 验证输入
+      if (zipcode && !isValidZipcode(zipcode)) {
+        setError('请输入有效的美国邮编格式 (如: 10024)');
+        return;
+      }
+
+      if (location && !isValidAddress(location)) {
+        setError('请输入有效的地址');
+        return;
+      }
+
+      // 地理编码
+      const result = await geocodeAddress(searchQuery);
+
+      // 更新地图位置
+      if (onLocationUpdate) {
+        onLocationUpdate({
+          latitude: result.latitude,
+          longitude: result.longitude,
+          displayName: result.display_name,
+        });
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -104,24 +148,52 @@ function SearchBar() {
             {/* 搜索按钮 - 只有图标 */}
             <button
               type='submit'
-              className='bg-primary-600 hover:bg-primary-700 text-white px-3 py-2 rounded-lg transition-colors duration-200 flex-shrink-0'
+              disabled={isLoading}
+              className={`px-3 py-2 rounded-lg transition-colors duration-200 flex-shrink-0 ${
+                isLoading
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-primary-600 hover:bg-primary-700'
+              } text-white`}
             >
-              <svg
-                className='w-5 h-5'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                />
-              </svg>
+              {isLoading ? (
+                <svg
+                  className='w-5 h-5 animate-spin'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className='w-5 h-5'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>
+
+        {/* 错误信息显示 */}
+        {error && (
+          <div className='mt-3 p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-lg'>
+            <p className='text-sm text-red-700 dark:text-red-300'>{error}</p>
+          </div>
+        )}
       </form>
     </div>
   );

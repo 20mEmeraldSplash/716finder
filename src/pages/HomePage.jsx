@@ -1,11 +1,22 @@
+import { useState } from 'react';
 import MapContainer from '../components/MapContainer';
 import SearchBar from '../components/SearchBar';
 
 function HomePage() {
+  const [mapLocation, setMapLocation] = useState({
+    latitude: 42.8864,
+    longitude: -78.8784,
+    displayName: 'Buffalo, NY',
+  });
+
+  const handleLocationUpdate = location => {
+    setMapLocation(location);
+  };
+
   return (
     <div className='min-h-screen bg-purple-50 dark:bg-purple-900'>
       <div className='w-full p-4'>
-        <SearchBar />
+        <SearchBar onLocationUpdate={handleLocationUpdate} />
 
         {/* 水平分割的两个区域 */}
         <div className='flex h-96 mt-4'>
@@ -23,7 +34,10 @@ function HomePage() {
 
           {/* 右侧粉色区域 - 地图容器 */}
           <div className='flex-1 rounded-xl shadow-soft ml-2 overflow-hidden'>
-            <MapContainer />
+            <MapContainer
+              center={[mapLocation.latitude, mapLocation.longitude]}
+              locationName={mapLocation.displayName}
+            />
           </div>
         </div>
       </div>

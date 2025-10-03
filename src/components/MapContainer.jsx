@@ -1,10 +1,12 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect } from 'react';
 import {
   MapContainer as LeafletMap,
   Marker,
   Popup,
   TileLayer,
+  useMap,
 } from 'react-leaflet';
 
 // 修复 Leaflet 默认图标问题
@@ -18,30 +20,52 @@ L.Icon.Default.mergeOptions({
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-// 布法罗市坐标
-const BUFFALO_COORDINATES = [42.8864, -78.8784];
+// 默认位置 - 布法罗市坐标
+const DEFAULT_COORDINATES = [42.8864, -78.8784];
 
-function MapContainer() {
+// 地图中心更新组件
+function MapUpdater({ center, zoom }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (center && center.length === 2) {
+      map.setView(center, zoom || 13);
+    }
+  }, [center, zoom, map]);
+
+  return null;
+}
+
+function MapContainer({
+  center = DEFAULT_COORDINATES,
+  zoom = 13,
+  locationName = 'Buffalo, NY',
+}) {
   return (
     <div className='w-full h-full'>
       <LeafletMap
-        center={BUFFALO_COORDINATES}
-        zoom={13}
+        center={center}
+        zoom={zoom}
         style={{ height: '100%', width: '100%' }}
         className='z-0'
       >
+        {/* 地图中心更新器 */}
+        <MapUpdater center={center} zoom={zoom} />
+
         {/* 地图瓦片层 */}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
 
-        {/* 默认标记点 - 布法罗市中心 */}
-        <Marker position={BUFFALO_COORDINATES}>
+        {/* 位置标记点 */}
+        <Marker position={center}>
           <Popup>
             <div className='text-center'>
-              <h3 className='font-semibold text-gray-900'>Buffalo, NY</h3>
-              <p className='text-sm text-gray-600'>默认中心点</p>
+              <h3 className='font-semibold text-gray-900'>{locationName}</h3>
+              <p className='text-sm text-gray-600'>
+                坐标: {center[0].toFixed(4)}, {center[1].toFixed(4)}
+              </p>
             </div>
           </Popup>
         </Marker>
