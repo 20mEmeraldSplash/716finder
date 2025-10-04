@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAllItems } from '../services/lostFoundService';
 import LostFoundCard from './LostFoundCard';
 
-function LostFoundCardList() {
+function LostFoundCardList({ selectedItemId, onItemSelect }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -112,7 +112,12 @@ function LostFoundCardList() {
       {/* 卡片列表 - 网格布局 */}
       <div className='grid grid-cols-2 gap-4 max-h-96 overflow-y-auto'>
         {items.map(item => (
-          <LostFoundCard key={item.id} item={item} />
+          <LostFoundCard
+            key={item.id}
+            item={item}
+            isSelected={selectedItemId === item.id}
+            onSelect={onItemSelect}
+          />
         ))}
       </div>
     </div>
