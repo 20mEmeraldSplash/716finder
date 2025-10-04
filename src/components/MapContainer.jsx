@@ -47,13 +47,7 @@ function MapUpdater({ center, zoom, selectedItem, items }) {
   const map = useMap();
 
   useEffect(() => {
-    if (center && center.length === 2) {
-      map.setView(center, zoom || 13);
-    }
-  }, [center, zoom, map]);
-
-  // 当选中物品时，聚焦到该物品的坐标
-  useEffect(() => {
+    // 优先处理选中物品的聚焦
     if (selectedItem && items.length > 0) {
       const selectedItemData = items.find(item => item.id === selectedItem);
       if (selectedItemData) {
@@ -62,9 +56,15 @@ function MapUpdater({ center, zoom, selectedItem, items }) {
           selectedItemData.coordinates.longitude,
         ];
         map.setView(itemPosition, 16); // 使用更高的缩放级别聚焦
+        return; // 如果选中了物品，就不执行下面的初始位置设置
       }
     }
-  }, [selectedItem, items, map]);
+
+    // 只有在没有选中物品时才设置到初始位置
+    if (center && center.length === 2) {
+      map.setView(center, zoom || 13);
+    }
+  }, [center, zoom, selectedItem, items, map]);
 
   return null;
 }
