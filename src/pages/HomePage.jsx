@@ -9,9 +9,14 @@ function HomePage() {
     longitude: -78.8784,
     displayName: 'Buffalo, NY',
   });
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
   const handleLocationUpdate = location => {
     setMapLocation(location);
+  };
+
+  const handleItemSelect = itemId => {
+    setSelectedItemId(itemId);
   };
 
   return (
@@ -24,7 +29,10 @@ function HomePage() {
           {/* 左侧白色区域 - 卡片列表 */}
           <div className='flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-soft mr-2'>
             <div className='p-6'>
-              <LostFoundCardList />
+              <LostFoundCardList
+                selectedItemId={selectedItemId}
+                onItemSelect={handleItemSelect}
+              />
             </div>
           </div>
 
@@ -33,6 +41,7 @@ function HomePage() {
             <MapContainer
               center={[mapLocation.latitude, mapLocation.longitude]}
               locationName={mapLocation.displayName}
+              selectedItemId={selectedItemId}
             />
           </div>
         </div>

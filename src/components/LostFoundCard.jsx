@@ -4,7 +4,7 @@ import {
   getStatusName,
 } from '../utils/lostFoundUtils';
 
-function LostFoundCard({ item }) {
+function LostFoundCard({ item, isSelected = false, onSelect }) {
   // 获取状态颜色
   const getStatusColor = status => {
     return status === 'lost'
@@ -25,8 +25,21 @@ function LostFoundCard({ item }) {
     return `ZIP: ${item.zipcode}`;
   };
 
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(item.id);
+    }
+  };
+
   return (
-    <div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-200'>
+    <div
+      className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border transition-all duration-200 cursor-pointer ${
+        isSelected
+          ? 'border-blue-500 shadow-lg ring-2 ring-blue-200 dark:ring-blue-800'
+          : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+      }`}
+      onClick={handleClick}
+    >
       {/* 图片区域 */}
       <div className='relative h-32 bg-gray-100 dark:bg-gray-700 rounded-t-lg overflow-hidden'>
         {item.photos && item.photos.length > 0 ? (
