@@ -8,8 +8,8 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
   // 获取状态颜色
   const getStatusColor = status => {
     return status === 'lost'
-      ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-      : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+      ? 'bg-red-100 text-red-800'
+      : 'bg-green-100 text-green-800';
   };
 
   // 获取状态图标
@@ -33,15 +33,15 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
 
   return (
     <div
-      className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border transition-all duration-200 cursor-pointer ${
+      className={`bg-white rounded-lg shadow-sm border transition-all duration-200 cursor-pointer ${
         isSelected
-          ? 'border-blue-500 shadow-lg ring-2 ring-blue-200 dark:ring-blue-800'
-          : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+          ? 'border-blue-500 shadow-lg ring-2 ring-blue-200'
+          : 'border-gray-200 hover:shadow-md'
       }`}
       onClick={handleClick}
     >
       {/* 图片区域 */}
-      <div className='relative h-32 bg-gray-100 dark:bg-gray-700 rounded-t-lg overflow-hidden'>
+      <div className='relative h-32 bg-gray-100 rounded-t-lg overflow-hidden'>
         {item.photos && item.photos.length > 0 ? (
           <img
             src={item.photos[0]}
@@ -57,7 +57,7 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
 
         {/* 占位图 */}
         <div
-          className={`w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500 ${
+          className={`w-full h-full flex items-center justify-center text-gray-400 ${
             item.photos && item.photos.length > 0 ? 'hidden' : 'flex'
           }`}
         >
@@ -91,7 +91,7 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
 
         {/* 类别标签 */}
         <div className='absolute top-2 right-2'>
-          <span className='inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+          <span className='inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800'>
             {getCategoryName(item.category)}
           </span>
         </div>
@@ -100,12 +100,12 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
       {/* 内容区域 */}
       <div className='p-3'>
         {/* 标题 */}
-        <h3 className='text-sm font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2'>
+        <h3 className='text-sm font-semibold text-gray-900 mb-2 line-clamp-2'>
           {item.title}
         </h3>
 
         {/* 时间 */}
-        <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 mb-1'>
+        <div className='flex items-center text-xs text-gray-500 mb-1'>
           <svg
             className='w-3 h-3 mr-1'
             fill='none'
@@ -123,7 +123,7 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
         </div>
 
         {/* 地点 */}
-        <div className='flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2'>
+        <div className='flex items-center text-xs text-gray-500 mb-2'>
           <svg
             className='w-3 h-3 mr-1'
             fill='none'
@@ -147,9 +147,7 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
         </div>
 
         {/* 描述预览 */}
-        <p className='text-xs text-gray-600 dark:text-gray-300 line-clamp-2'>
-          {item.description}
-        </p>
+        <p className='text-xs text-gray-600 line-clamp-2'>{item.description}</p>
       </div>
     </div>
   );

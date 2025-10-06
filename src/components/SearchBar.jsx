@@ -140,7 +140,7 @@ function SearchBar({ onLocationUpdate }) {
     <div className='w-full'>
       <form onSubmit={handleSearch} className='w-full'>
         {/* 模仿设计的长条搜索框 */}
-        <div className='bg-white dark:bg-gray-800 rounded-xl shadow-soft p-2'>
+        <div className='bg-white  rounded-xl shadow-soft p-2'>
           <div className='flex items-center gap-4'>
             {/* 搜索图标 */}
             <svg
@@ -164,12 +164,12 @@ function SearchBar({ onLocationUpdate }) {
                 value={location}
                 onChange={handleLocationChange}
                 placeholder='Search for a location'
-                className='w-full text-base border-none outline-none bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500'
+                className='w-full text-base border-none outline-none bg-transparent text-gray-900  placeholder-gray-400 '
               />
             </div>
 
             {/* 分隔线 */}
-            <div className='w-px h-6 bg-gray-300 dark:bg-gray-600 flex-shrink-0'></div>
+            <div className='w-px h-6 bg-gray-300  flex-shrink-0'></div>
 
             {/* 位置图标 */}
             <svg
@@ -199,7 +199,7 @@ function SearchBar({ onLocationUpdate }) {
                 value={zipcode}
                 onChange={handleZipcodeChange}
                 placeholder='Enter Zip Code'
-                className='w-full text-base border-none outline-none bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500'
+                className='w-full text-base border-none outline-none bg-transparent text-gray-900  placeholder-gray-400 '
               />
             </div>
 
@@ -213,7 +213,7 @@ function SearchBar({ onLocationUpdate }) {
                 // 清除 URL 参数
                 updateURLParams('', '');
               }}
-              className='p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 flex-shrink-0'
+              className='p-2 text-gray-400 hover:text-gray-600  transition-colors duration-200 flex-shrink-0'
             >
               <svg
                 className='w-5 h-5'
@@ -275,8 +275,8 @@ function SearchBar({ onLocationUpdate }) {
 
         {/* 错误信息显示 */}
         {error && (
-          <div className='mt-3 p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-lg'>
-            <p className='text-sm text-red-700 dark:text-red-300'>{error}</p>
+          <div className='mt-3 p-3 bg-red-100  border border-red-300  rounded-lg'>
+            <p className='text-sm text-red-700 '>{error}</p>
           </div>
         )}
       </form>
