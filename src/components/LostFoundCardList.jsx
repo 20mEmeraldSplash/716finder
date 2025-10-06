@@ -41,9 +41,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
               d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
             />
           </svg>
-          <p className='text-sm text-gray-500 dark:text-gray-400'>
-            Loading items...
-          </p>
+          <p className='text-sm text-gray-500'>Loading items...</p>
         </div>
       </div>
     );
@@ -66,7 +64,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
               d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
             />
           </svg>
-          <p className='text-sm text-red-500 dark:text-red-400'>{error}</p>
+          <p className='text-sm text-red-500'>{error}</p>
         </div>
       </div>
     );
@@ -89,9 +87,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
               d='M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4'
             />
           </svg>
-          <p className='text-sm text-gray-500 dark:text-gray-400'>
-            No items found
-          </p>
+          <p className='text-sm text-gray-500'>No items found</p>
         </div>
       </div>
     );
@@ -101,12 +97,10 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
     <div className='space-y-4'>
       {/* 统计信息 */}
       <div className='flex items-center justify-between mb-4'>
-        <h2 className='text-lg font-semibold text-gray-900 dark:text-white'>
+        <h2 className='text-lg font-semibold text-gray-900'>
           Lost & Found Items
         </h2>
-        <span className='text-sm text-gray-500 dark:text-gray-400'>
-          {items.length} items
-        </span>
+        <span className='text-sm text-gray-500'>{items.length} items</span>
       </div>
 
       {/* 卡片列表 - 网格布局 */}

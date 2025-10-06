@@ -20,14 +20,14 @@ function HomePage() {
   };
 
   return (
-    <div className='min-h-screen bg-purple-50 dark:bg-purple-900'>
+    <div className='min-h-screen bg-purple-50'>
       <div className='w-full p-4'>
         <SearchBar onLocationUpdate={handleLocationUpdate} />
 
         {/* 水平分割的两个区域 */}
         <div className='flex mt-4'>
           {/* 左侧白色区域 - 卡片列表 */}
-          <div className='flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-soft mr-2'>
+          <div className='flex-1 bg-white rounded-xl shadow-soft mr-2'>
             <div className='p-6'>
               <LostFoundCardList
                 selectedItemId={selectedItemId}
