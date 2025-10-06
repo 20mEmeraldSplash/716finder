@@ -10,6 +10,7 @@ import {
 } from 'react-leaflet';
 import { getAllItems } from '../services/lostFoundService';
 import { getMarkerColor } from '../utils/lostFoundUtils';
+import MapPopup from './MapPopup';
 
 // 修复 Leaflet 默认图标问题
 delete L.Icon.Default.prototype._getIconUrl;
@@ -193,40 +194,7 @@ function MapContainer({
                 }}
               >
                 <Popup>
-                  {isSelected ? (
-                    // 选中时只显示图片
-                    <div className='text-center'>
-                      {item.photos && item.photos.length > 0 ? (
-                        <img
-                          src={item.photos[0]}
-                          alt={item.title}
-                          className='w-32 h-32 object-cover rounded-lg'
-                        />
-                      ) : (
-                        <div className='w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center'>
-                          <span className='text-gray-500 text-sm'>
-                            No Image
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    // 未选中时显示完整信息
-                    <div className='text-center'>
-                      <h3 className='font-semibold text-gray-900 mb-2'>
-                        {item.title}
-                      </h3>
-                      <p className='text-sm text-gray-600 mb-2'>
-                        {item.status === 'lost' ? '🔍 丢失' : '✅ 找到'}
-                      </p>
-                      <p className='text-xs text-gray-500 mb-2'>
-                        {item.description}
-                      </p>
-                      <p className='text-xs text-gray-400'>
-                        {new Date(item.lastSeenAt).toLocaleDateString()}
-                      </p>
-                    </div>
-                  )}
+                  <MapPopup item={item} isSelected={false} />
                 </Popup>
               </Marker>
             );

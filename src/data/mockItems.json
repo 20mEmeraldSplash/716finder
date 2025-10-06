@@ -2,9 +2,9 @@
   {
     "id": "item-001",
     "status": "lost",
-    "title": "丢失的 AirPods Pro",
+    "title": "Lost AirPods Pro",
     "category": "electronics",
-    "description": "黑色 AirPods Pro，带有充电盒。在布法罗大学北校区附近丢失，可能是在跑步时掉落的。充电盒上有小划痕。",
+    "description": "Black AirPods Pro with charging case. Lost near UB North Campus, possibly fell while jogging. Small scratches on the charging case.",
     "photos": [
       "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400",
       "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"
@@ -17,8 +17,8 @@
     "zipcode": "14260",
     "createdAt": "2024-01-15T15:00:00Z",
     "contact": {
-      "name": "张三",
-      "email": "zhangsan@email.com",
+      "name": "John Smith",
+      "email": "john.smith@email.com",
       "phone": "+1-716-123-4567",
       "preferredContact": "phone"
     }
@@ -26,9 +26,9 @@
   {
     "id": "item-002",
     "status": "found",
-    "title": "捡到的红色钱包",
+    "title": "Found Red Wallet",
     "category": "accessories",
-    "description": "在 Elmwood Village 咖啡店门口捡到一个红色皮质钱包，里面有身份证和几张银行卡。希望失主尽快联系。",
+    "description": "Found a red leather wallet outside Elmwood Village coffee shop. Contains ID card and several bank cards. Please contact ASAP.",
     "photos": [
       "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"
     ],
@@ -40,8 +40,8 @@
     "zipcode": "14222",
     "createdAt": "2024-01-14T09:30:00Z",
     "contact": {
-      "name": "李四",
-      "email": "lisi@email.com",
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@email.com",
       "phone": "+1-716-234-5678",
       "preferredContact": "email"
     }
@@ -49,9 +49,9 @@
   {
     "id": "item-003",
     "status": "lost",
-    "title": "丢失的黑色背包",
+    "title": "Lost Black Backpack",
     "category": "accessories",
-    "description": "黑色双肩背包，里面装有笔记本电脑和重要文件。在 Buffalo 地铁站丢失，非常着急。",
+    "description": "Black backpack containing laptop and important documents. Lost at Buffalo Metro Station. Very urgent.",
     "photos": [
       "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
       "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"
@@ -64,8 +64,8 @@
     "zipcode": "14202",
     "createdAt": "2024-01-13T19:00:00Z",
     "contact": {
-      "name": "王五",
-      "email": "wangwu@email.com",
+      "name": "Michael Brown",
+      "email": "michael.brown@email.com",
       "phone": "+1-716-345-6789",
       "preferredContact": "both"
     }
@@ -73,9 +73,9 @@
   {
     "id": "item-004",
     "status": "found",
-    "title": "捡到的金毛犬",
+    "title": "Found Golden Retriever",
     "category": "pets",
-    "description": "在 Delaware Park 里发现一只走失的金毛犬，很温顺，戴着红色项圈。希望主人尽快联系。",
+    "description": "Found a lost golden retriever in Delaware Park. Very friendly, wearing a red collar. Please contact owner ASAP.",
     "photos": [
       "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400",
       "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400"
@@ -88,8 +88,8 @@
     "zipcode": "14214",
     "createdAt": "2024-01-12T16:30:00Z",
     "contact": {
-      "name": "赵六",
-      "email": "zhaoliu@email.com",
+      "name": "Emily Davis",
+      "email": "emily.davis@email.com",
       "phone": "+1-716-456-7890",
       "preferredContact": "phone"
     }
@@ -97,9 +97,9 @@
   {
     "id": "item-005",
     "status": "lost",
-    "title": "丢失的 iPhone 15",
+    "title": "Lost iPhone 15",
     "category": "electronics",
-    "description": "深空黑色 iPhone 15，128GB。在 Walden Galleria 购物时丢失，手机壳是透明的。",
+    "description": "Space Black iPhone 15, 128GB. Lost while shopping at Walden Galleria. Has a clear phone case.",
     "photos": [
       "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400"
     ],
@@ -111,8 +111,8 @@
     "zipcode": "14225",
     "createdAt": "2024-01-11T20:30:00Z",
     "contact": {
-      "name": "孙七",
-      "email": "sunqi@email.com",
+      "name": "David Wilson",
+      "email": "david.wilson@email.com",
       "phone": "+1-716-567-8901",
       "preferredContact": "phone"
     }
@@ -120,9 +120,9 @@
   {
     "id": "item-006",
     "status": "found",
-    "title": "捡到的学生证",
+    "title": "Found Student ID",
     "category": "documents",
-    "description": "在 Buffalo Public Library 捡到一张学生证，姓名：陈八，学号：2021001234。请失主联系认领。",
+    "description": "Found a student ID at Buffalo Public Library. Name: Chen Ba, Student ID: 2021001234. Please contact to claim.",
     "photos": [
       "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400"
     ],
@@ -134,17 +134,17 @@
     "zipcode": "14202",
     "createdAt": "2024-01-10T14:15:00Z",
     "contact": {
-      "name": "周九",
-      "email": "zhoujiu@email.com",
+      "name": "Lisa Anderson",
+      "email": "lisa.anderson@email.com",
       "preferredContact": "email"
     }
   },
   {
     "id": "item-007",
     "status": "lost",
-    "title": "丢失的自行车",
+    "title": "Lost Bicycle",
     "category": "sports",
-    "description": "蓝色山地自行车，前轮有白色条纹。在 Canalside 附近丢失，车锁被剪断。",
+    "description": "Blue mountain bike with white stripes on front wheel. Lost near Canalside, bike lock was cut.",
     "photos": [
       "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400",
       "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400"
@@ -157,8 +157,8 @@
     "zipcode": "14202",
     "createdAt": "2024-01-09T09:00:00Z",
     "contact": {
-      "name": "吴十",
-      "email": "wushi@email.com",
+      "name": "Robert Taylor",
+      "email": "robert.taylor@email.com",
       "phone": "+1-716-678-9012",
       "preferredContact": "both"
     }
@@ -166,9 +166,9 @@
   {
     "id": "item-008",
     "status": "found",
-    "title": "捡到的钥匙串",
+    "title": "Found Keychain",
     "category": "keys",
-    "description": "在 Buffalo Niagara International Airport 捡到一串钥匙，有5把钥匙和一个蓝色钥匙扣。",
+    "description": "Found a set of keys at Buffalo Niagara International Airport. Contains 5 keys and a blue keychain.",
     "photos": [
       "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400"
     ],
@@ -180,8 +180,8 @@
     "zipcode": "14225",
     "createdAt": "2024-01-08T18:00:00Z",
     "contact": {
-      "name": "郑十一",
-      "email": "zhengshiyi@email.com",
+      "name": "Jennifer Martinez",
+      "email": "jennifer.martinez@email.com",
       "phone": "+1-716-789-0123",
       "preferredContact": "phone"
     }
@@ -189,9 +189,9 @@
   {
     "id": "item-009",
     "status": "lost",
-    "title": "丢失的眼镜",
+    "title": "Lost Glasses",
     "category": "accessories",
-    "description": "黑色金属框架眼镜，度数较深。在 Sahlen Field 附近餐厅用餐时丢失，非常需要。",
+    "description": "Black metal frame glasses with strong prescription. Lost while dining at restaurant near Sahlen Field. Very needed.",
     "photos": [
       "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400"
     ],
@@ -203,8 +203,8 @@
     "zipcode": "14203",
     "createdAt": "2024-01-07T19:30:00Z",
     "contact": {
-      "name": "王十二",
-      "email": "wangshier@email.com",
+      "name": "Christopher Lee",
+      "email": "christopher.lee@email.com",
       "phone": "+1-716-890-1234",
       "preferredContact": "email"
     }
@@ -212,9 +212,9 @@
   {
     "id": "item-010",
     "status": "found",
-    "title": "捡到的书籍",
+    "title": "Found Book",
     "category": "books",
-    "description": "在 Albright-Knox Art Gallery 附近公园长椅上发现一本《JavaScript高级程序设计》，书页有些折痕。",
+    "description": "Found 'Professional JavaScript for Web Developers' on park bench near Albright-Knox Art Gallery. Some page creases.",
     "photos": [
       "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
     ],
@@ -226,8 +226,8 @@
     "zipcode": "14222",
     "createdAt": "2024-01-06T15:45:00Z",
     "contact": {
-      "name": "李十三",
-      "email": "lishisan@email.com",
+      "name": "Amanda Garcia",
+      "email": "amanda.garcia@email.com",
       "preferredContact": "email"
     }
   }

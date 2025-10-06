@@ -189,45 +189,45 @@ export function formatDate(dateString) {
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays === 0) {
-    return '今天';
+    return 'Today';
   } else if (diffDays === 1) {
-    return '昨天';
+    return 'Yesterday';
   } else if (diffDays < 7) {
-    return `${diffDays} 天前`;
+    return `${diffDays} days ago`;
   } else {
-    return date.toLocaleDateString('zh-CN');
+    return date.toLocaleDateString('en-US');
   }
 }
 
 /**
- * 获取类别的中文名称
+ * 获取类别的英文名称
  * @param {string} category - 英文类别
- * @returns {string} 中文类别名称
+ * @returns {string} 英文类别名称
  */
 export function getCategoryName(category) {
   const categoryNames = {
-    electronics: '电子产品',
-    clothing: '服装',
-    accessories: '配饰',
-    documents: '证件',
-    keys: '钥匙',
-    pets: '宠物',
-    books: '书籍',
-    jewelry: '珠宝',
-    sports: '运动用品',
-    other: '其他',
+    electronics: 'Electronics',
+    clothing: 'Clothing',
+    accessories: 'Accessories',
+    documents: 'Documents',
+    keys: 'Keys',
+    pets: 'Pets',
+    books: 'Books',
+    jewelry: 'Jewelry',
+    sports: 'Sports',
+    other: 'Other',
   };
 
-  return categoryNames[category] || '未知';
+  return categoryNames[category] || 'Unknown';
 }
 
 /**
- * 获取状态的中文名称
+ * 获取状态的英文名称
  * @param {string} status - 状态
- * @returns {string} 中文状态名称
+ * @returns {string} 英文状态名称
  */
 export function getStatusName(status) {
-  return status === 'lost' ? '丢失' : '捡到';
+  return status === 'lost' ? 'Lost' : 'Found';
 }
 
 /**
