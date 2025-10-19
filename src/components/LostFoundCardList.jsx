@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllItems } from '../services/lostFoundService';
+import { getAllPets } from '../services/petService';
 import LostFoundCard from './LostFoundCard';
 
 function LostFoundCardList({ selectedItemId, onItemSelect }) {
@@ -11,11 +11,11 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
     const fetchItems = async () => {
       try {
         setIsLoading(true);
-        const data = await getAllItems();
+        const data = await getAllPets();
         setItems(data);
       } catch (error) {
-        console.error('Failed to fetch items:', error);
-        setError('Failed to load items');
+        console.error('Failed to fetch pets:', error);
+        setError('Failed to load pets');
       } finally {
         setIsLoading(false);
       }

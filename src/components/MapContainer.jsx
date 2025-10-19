@@ -8,7 +8,7 @@ import {
   TileLayer,
   useMap,
 } from 'react-leaflet';
-import { getAllItems } from '../services/lostFoundService';
+import { getAllPets } from '../services/petService';
 import { getMarkerColor } from '../utils/lostFoundUtils';
 import MapPopup from './MapPopup';
 
@@ -109,10 +109,10 @@ function MapContainer({
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const data = await getAllItems();
+        const data = await getAllPets();
         setItems(data);
       } catch (error) {
-        console.error('Failed to fetch items:', error);
+        console.error('Failed to fetch pets:', error);
       } finally {
         setIsLoading(false);
       }
@@ -158,11 +158,11 @@ function MapContainer({
           </Popup>
         </Marker>
 
-        {/* 物品标记点 */}
+        {/* 宠物标记点 */}
         {!isLoading &&
-          items.map(item => {
-            const markerColor = getMarkerColor(item.status, item.category);
-            const isSelected = selectedItemId === item.id;
+          items.map(pet => {
+            const markerColor = getMarkerColor(pet.status, pet.species);
+            const isSelected = selectedItemId === pet.id;
 
             const customIcon = L.divIcon({
               className: 'custom-marker',
@@ -180,21 +180,18 @@ function MapContainer({
 
             return (
               <Marker
-                key={item.id}
-                position={[
-                  item.coordinates.latitude,
-                  item.coordinates.longitude,
-                ]}
+                key={pet.id}
+                position={[pet.latitude, pet.longitude]}
                 icon={customIcon}
                 eventHandlers={{
                   add: e => {
-                    // 为标记添加 itemId 选项
-                    e.target.options.itemId = item.id;
+                    // 为标记添加 petId 选项
+                    e.target.options.itemId = pet.id;
                   },
                 }}
               >
                 <Popup>
-                  <MapPopup item={item} isSelected={false} />
+                  <MapPopup item={pet} isSelected={false} />
                 </Popup>
               </Marker>
             );
