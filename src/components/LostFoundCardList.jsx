@@ -104,7 +104,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
       </div>
 
       {/* 卡片列表 - 网格布局 */}
-      <div className='grid grid-cols-2 gap-4 max-h-96 overflow-y-auto'>
+      <div className='grid grid-cols-2 gap-4'>
         {items.map(item => (
           <LostFoundCard
             key={item.id}

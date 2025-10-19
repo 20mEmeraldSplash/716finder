@@ -20,30 +20,30 @@ function HomePage() {
   };
 
   return (
-    <div className='min-h-screen bg-purple-50'>
-      <div className='w-full p-4'>
+    <div className='flex-1 bg-purple-50 flex flex-col overflow-hidden'>
+      <div className='w-full p-4 flex-shrink-0'>
         <SearchBar onLocationUpdate={handleLocationUpdate} />
+      </div>
 
-        {/* 水平分割的两个区域 */}
-        <div className='flex mt-4'>
-          {/* 左侧白色区域 - 卡片列表 */}
-          <div className='flex-1 bg-white rounded-xl shadow-soft mr-2'>
-            <div className='p-6'>
-              <LostFoundCardList
-                selectedItemId={selectedItemId}
-                onItemSelect={handleItemSelect}
-              />
-            </div>
-          </div>
-
-          {/* 右侧粉色区域 - 地图容器 */}
-          <div className='flex-1 rounded-xl shadow-soft ml-2 overflow-hidden'>
-            <MapContainer
-              center={[mapLocation.latitude, mapLocation.longitude]}
-              locationName={mapLocation.displayName}
+      {/* 水平分割的两个区域 */}
+      <div className='flex flex-1 px-4 pb-4 gap-4 min-h-0'>
+        {/* 左侧白色区域 - 卡片列表 */}
+        <div className='w-1/2 bg-white rounded-xl shadow-soft overflow-hidden flex flex-col'>
+          <div className='p-6 flex-1 overflow-y-auto'>
+            <LostFoundCardList
               selectedItemId={selectedItemId}
+              onItemSelect={handleItemSelect}
             />
           </div>
+        </div>
+
+        {/* 右侧地图容器 - 占满剩余高度 */}
+        <div className='w-1/2 rounded-xl shadow-soft overflow-hidden'>
+          <MapContainer
+            center={[mapLocation.latitude, mapLocation.longitude]}
+            locationName={mapLocation.displayName}
+            selectedItemId={selectedItemId}
+          />
         </div>
       </div>
     </div>
