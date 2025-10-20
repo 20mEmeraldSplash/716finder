@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddressAutocomplete from '../components/AddressAutocomplete';
 import { addPet } from '../services/petService';
 
 function AdminPage() {
@@ -16,6 +17,7 @@ function AdminPage() {
     location_name: '',
     latitude: '',
     longitude: '',
+    zipcode: '',
     contact_name: '',
     contact_phone: '',
     contact_email: '',
@@ -30,6 +32,16 @@ function AdminPage() {
     setFormData(prev => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleLocationSelect = locationData => {
+    setFormData(prev => ({
+      ...prev,
+      latitude: locationData.latitude,
+      longitude: locationData.longitude,
+      location_name: locationData.location_name,
+      zipcode: locationData.zipcode,
     }));
   };
 
@@ -63,6 +75,7 @@ function AdminPage() {
         location_name: '',
         latitude: '',
         longitude: '',
+        zipcode: '',
         contact_name: '',
         contact_phone: '',
         contact_email: '',
@@ -77,7 +90,7 @@ function AdminPage() {
   };
 
   return (
-    <div className='min-h-screen bg-purple-50 p-8'>
+    <div className='min-h-screen bg-purple-50 p-8 overflow-y-auto'>
       <div className='max-w-2xl mx-auto bg-white rounded-xl shadow-soft p-6'>
         <h1 className='text-3xl font-bold text-gray-900 mb-6'>
           Add Lost/Found Pet
@@ -250,14 +263,17 @@ function AdminPage() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
                   Location Name
                 </label>
-                <input
-                  type='text'
-                  name='location_name'
+                <AddressAutocomplete
                   value={formData.location_name}
-                  onChange={handleInputChange}
-                  placeholder='e.g., Buffalo, NY'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  onChange={value =>
+                    setFormData(prev => ({ ...prev, location_name: value }))
+                  }
+                  onLocationSelect={handleLocationSelect}
+                  placeholder='Start typing address...'
                 />
+                <p className='text-xs text-gray-500 mt-1'>
+                  Start typing to see address suggestions
+                </p>
               </div>
 
               <div>
@@ -274,37 +290,19 @@ function AdminPage() {
               </div>
             </div>
 
-            <div className='grid grid-cols-2 gap-4 mt-4'>
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Latitude
-                </label>
-                <input
-                  type='number'
-                  step='any'
-                  name='latitude'
-                  value={formData.latitude}
-                  onChange={handleInputChange}
-                  placeholder='42.8864'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                />
+            {/* 显示自动填充的坐标和邮编 */}
+            {formData.latitude && formData.longitude && (
+              <div className='mt-4 p-3 bg-green-50 border border-green-200 rounded-lg'>
+                <div className='text-sm text-green-800'>
+                  <strong>Auto-filled location data:</strong>
+                </div>
+                <div className='text-xs text-green-600 mt-1'>
+                  Latitude: {formData.latitude} | Longitude:{' '}
+                  {formData.longitude}
+                  {formData.zipcode && ` | Zipcode: ${formData.zipcode}`}
+                </div>
               </div>
-
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Longitude
-                </label>
-                <input
-                  type='number'
-                  step='any'
-                  name='longitude'
-                  value={formData.longitude}
-                  onChange={handleInputChange}
-                  placeholder='-78.8784'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-                />
-              </div>
-            </div>
+            )}
           </div>
 
           {/* 联系信息 */}
