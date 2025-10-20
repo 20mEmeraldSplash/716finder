@@ -1,3 +1,4 @@
+import { formatAddress } from '../utils/addressFormatter';
 import { formatDate, getStatusName } from '../utils/lostFoundUtils';
 
 function LostFoundCard({ item, isSelected = false, onSelect }) {
@@ -16,7 +17,7 @@ function LostFoundCard({ item, isSelected = false, onSelect }) {
   // 格式化地点显示
   const formatLocation = item => {
     if (item.location_name) {
-      return item.location_name;
+      return formatAddress(item.location_name);
     }
     if (item.zipcode) {
       return `ZIP: ${item.zipcode}`;
