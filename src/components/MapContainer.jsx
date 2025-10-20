@@ -51,10 +51,14 @@ function MapUpdater({ center, zoom, selectedItem, items }) {
     // 优先处理选中物品的聚焦
     if (selectedItem && items.length > 0) {
       const selectedItemData = items.find(item => item.id === selectedItem);
-      if (selectedItemData) {
+      if (
+        selectedItemData &&
+        selectedItemData.latitude &&
+        selectedItemData.longitude
+      ) {
         const itemPosition = [
-          selectedItemData.coordinates.latitude,
-          selectedItemData.coordinates.longitude,
+          selectedItemData.latitude,
+          selectedItemData.longitude,
         ];
         map.setView(itemPosition, 16); // 使用更高的缩放级别聚焦
         return; // 如果选中了物品，就不执行下面的初始位置设置
