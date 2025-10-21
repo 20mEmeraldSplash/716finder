@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getAllPets } from '../services/petService';
 import LostFoundCard from './LostFoundCard';
+import PetDetailCard from './PetDetailCard';
 
 function LostFoundCardList({ selectedItemId, onItemSelect }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedPet, setSelectedPet] = useState(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -23,6 +25,19 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
 
     fetchItems();
   }, []);
+
+  const handleCardClick = itemId => {
+    // 找到选中的宠物
+    const pet = items.find(item => item.id === itemId);
+    setSelectedPet(pet);
+
+    // 同时触发地图聚焦
+    onItemSelect(itemId);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedPet(null);
+  };
 
   if (isLoading) {
     return (
@@ -103,6 +118,11 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
         <span className='text-sm text-gray-500'>{items.length} items</span>
       </div>
 
+      {/* 详细卡片 */}
+      {selectedPet && (
+        <PetDetailCard pet={selectedPet} onClose={handleCloseDetail} />
+      )}
+
       {/* 卡片列表 - 网格布局 */}
       <div className='grid grid-cols-2 gap-4'>
         {items.map(item => (
@@ -110,7 +130,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
             key={item.id}
             item={item}
             isSelected={selectedItemId === item.id}
-            onSelect={onItemSelect}
+            onSelect={handleCardClick}
           />
         ))}
       </div>
