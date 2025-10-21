@@ -21,7 +21,7 @@ function DataSetupPage() {
   };
 
   return (
-    <div className='min-h-screen bg-purple-50 p-8'>
+    <div className='flex-1 bg-purple-50 p-8'>
       <div className='max-w-2xl mx-auto bg-white rounded-xl shadow-soft p-6'>
         <h1 className='text-3xl font-bold text-gray-900 mb-6'>数据库设置</h1>
 
