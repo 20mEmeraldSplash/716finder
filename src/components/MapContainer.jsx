@@ -106,6 +106,7 @@ function MapContainer({
   zoom = 13,
   locationName = 'Buffalo, NY',
   selectedItemId = null,
+  onMarkerClick = null,
 }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -191,6 +192,12 @@ function MapContainer({
                   add: e => {
                     // 为标记添加 petId 选项
                     e.target.options.itemId = pet.id;
+                  },
+                  click: () => {
+                    // 点击标记时触发回调
+                    if (onMarkerClick) {
+                      onMarkerClick(pet.id);
+                    }
                   },
                 }}
               >

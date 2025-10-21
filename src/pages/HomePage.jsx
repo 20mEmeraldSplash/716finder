@@ -19,6 +19,10 @@ function HomePage() {
     setSelectedItemId(itemId);
   };
 
+  const handleMarkerClick = itemId => {
+    setSelectedItemId(itemId);
+  };
+
   return (
     <div className='flex-1 bg-purple-50 flex flex-col overflow-hidden'>
       <div className='w-full p-4 flex-shrink-0'>
@@ -43,6 +47,7 @@ function HomePage() {
             center={[mapLocation.latitude, mapLocation.longitude]}
             locationName={mapLocation.displayName}
             selectedItemId={selectedItemId}
+            onMarkerClick={handleMarkerClick}
           />
         </div>
       </div>

@@ -40,6 +40,18 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
     }
   }, [selectedPet]);
 
+  // 当selectedItemId改变时，更新selectedPet
+  useEffect(() => {
+    if (selectedItemId && items.length > 0) {
+      const pet = items.find(item => item.id === selectedItemId);
+      if (pet) {
+        setSelectedPet(pet);
+      }
+    } else if (!selectedItemId) {
+      setSelectedPet(null);
+    }
+  }, [selectedItemId, items]);
+
   const handleCardClick = itemId => {
     // 找到选中的宠物
     const pet = items.find(item => item.id === itemId);
