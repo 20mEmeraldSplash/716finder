@@ -5,7 +5,12 @@ function Header() {
   return (
     <header className='h-12 bg-white shadow-sm border-b border-gray-200'>
       <div className='h-full flex items-center justify-between px-4'>
-        <h1 className='text-2xl font-bold text-gray-900'>716Finder</h1>
+        <Link
+          to='/'
+          className='text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors duration-200'
+        >
+          716Finder
+        </Link>
 
         <Link
           to='/admin'
@@ -24,7 +29,7 @@ function Header() {
               d='M12 6v6m0 0v6m0-6h6m-6 0H6'
             />
           </svg>
-          Report Pet
+          Add Lost/Found Pet
         </Link>
       </div>
     </header>
