@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getAllPets } from '../services/petService';
 import LostFoundCard from './LostFoundCard';
+import PetDetailCard from './PetDetailCard';
 
 function LostFoundCardList({ selectedItemId, onItemSelect }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedPet, setSelectedPet] = useState(null);
+  const detailCardRef = useRef(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -23,6 +26,44 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
 
     fetchItems();
   }, []);
+
+  // 当详细卡片显示时，滚动到卡片位置
+  useEffect(() => {
+    if (selectedPet && detailCardRef.current) {
+      // 稍微延迟以确保DOM已更新
+      setTimeout(() => {
+        detailCardRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 100);
+    }
+  }, [selectedPet]);
+
+  // 当selectedItemId改变时，更新selectedPet
+  useEffect(() => {
+    if (selectedItemId && items.length > 0) {
+      const pet = items.find(item => item.id === selectedItemId);
+      if (pet) {
+        setSelectedPet(pet);
+      }
+    } else if (!selectedItemId) {
+      setSelectedPet(null);
+    }
+  }, [selectedItemId, items]);
+
+  const handleCardClick = itemId => {
+    // 找到选中的宠物
+    const pet = items.find(item => item.id === itemId);
+    setSelectedPet(pet);
+
+    // 同时触发地图聚焦
+    onItemSelect(itemId);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedPet(null);
+  };
 
   if (isLoading) {
     return (
@@ -103,6 +144,13 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
         <span className='text-sm text-gray-500'>{items.length} items</span>
       </div>
 
+      {/* 详细卡片 */}
+      {selectedPet && (
+        <div ref={detailCardRef}>
+          <PetDetailCard pet={selectedPet} onClose={handleCloseDetail} />
+        </div>
+      )}
+
       {/* 卡片列表 - 网格布局 */}
       <div className='grid grid-cols-2 gap-4'>
         {items.map(item => (
@@ -110,7 +158,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
             key={item.id}
             item={item}
             isSelected={selectedItemId === item.id}
-            onSelect={onItemSelect}
+            onSelect={handleCardClick}
           />
         ))}
       </div>
