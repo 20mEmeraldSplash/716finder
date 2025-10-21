@@ -1,8 +1,5 @@
-import {
-  formatDate,
-  getCategoryName,
-  getStatusName,
-} from '../utils/lostFoundUtils';
+import { formatAddress } from '../utils/addressFormatter';
+import { formatDate, getStatusName } from '../utils/lostFoundUtils';
 
 function MapPopup({ item, isSelected = false }) {
   // 获取状态颜色
@@ -19,10 +16,13 @@ function MapPopup({ item, isSelected = false }) {
 
   // 格式化地点显示
   const formatLocation = item => {
-    if (item.address && item.address.city && item.address.state) {
-      return `${item.address.city}, ${item.address.state}`;
+    if (item.location_name) {
+      return formatAddress(item.location_name);
     }
-    return `ZIP: ${item.zipcode}`;
+    if (item.zipcode) {
+      return `ZIP: ${item.zipcode}`;
+    }
+    return 'Location unknown';
   };
 
   if (isSelected) {
@@ -32,7 +32,7 @@ function MapPopup({ item, isSelected = false }) {
         {item.photos && item.photos.length > 0 ? (
           <img
             src={item.photos[0]}
-            alt={item.title}
+            alt={item.name}
             className='w-32 h-32 object-cover rounded-lg'
           />
         ) : (
@@ -52,7 +52,7 @@ function MapPopup({ item, isSelected = false }) {
         {item.photos && item.photos.length > 0 ? (
           <img
             src={item.photos[0]}
-            alt={item.title}
+            alt={item.name}
             className='w-full h-full object-cover rounded-lg'
             onError={e => {
               // 图片加载失败时显示占位图
@@ -99,7 +99,9 @@ function MapPopup({ item, isSelected = false }) {
         {/* 类别标签 */}
         <div className='absolute top-2 right-2'>
           <span className='inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800'>
-            {getCategoryName(item.category)}
+            {item.species
+              ? item.species.charAt(0).toUpperCase() + item.species.slice(1)
+              : 'Pet'}
           </span>
         </div>
       </div>
@@ -108,7 +110,7 @@ function MapPopup({ item, isSelected = false }) {
       <div className='px-2 pb-2'>
         {/* 标题 */}
         <h3 className='text-sm font-semibold text-gray-900 mb-2 line-clamp-2'>
-          {item.title}
+          {item.name}
         </h3>
 
         {/* 时间 */}
@@ -126,7 +128,7 @@ function MapPopup({ item, isSelected = false }) {
               d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
             />
           </svg>
-          {formatDate(item.lastSeenAt)}
+          {formatDate(item.last_seen_at)}
         </div>
 
         {/* 地点 */}
