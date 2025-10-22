@@ -26,6 +26,7 @@ function AdminPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -45,10 +46,70 @@ function AdminPage() {
     }));
   };
 
+  // 验证表单数据
+  const validateForm = () => {
+    const newErrors = {};
+
+    // 必填项验证
+    if (!formData.name.trim()) {
+      newErrors.name = 'Pet name is required';
+    }
+
+    if (!formData.species) {
+      newErrors.species = 'Species is required';
+    }
+
+    if (!formData.status) {
+      newErrors.status = 'Status is required';
+    }
+
+    if (!formData.location_name.trim()) {
+      newErrors.location_name = 'Location is required';
+    }
+
+    if (!formData.last_seen_at) {
+      newErrors.last_seen_at = 'Last seen date is required';
+    }
+
+    if (!formData.contact_name.trim()) {
+      newErrors.contact_name = 'Contact name is required';
+    }
+
+    // 至少一个联系方式
+    if (!formData.contact_email.trim() && !formData.contact_phone.trim()) {
+      newErrors.contact =
+        'At least one contact method (email or phone) is required';
+    }
+
+    // 邮箱格式验证
+    if (
+      formData.contact_email.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact_email)
+    ) {
+      newErrors.contact_email = 'Please enter a valid email address';
+    }
+
+    // 电话格式验证（简单验证）
+    if (formData.contact_phone.trim() && formData.contact_phone.length < 10) {
+      newErrors.contact_phone = 'Please enter a valid phone number';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage('');
+    setErrors({});
+
+    // 验证表单
+    if (!validateForm()) {
+      setIsSubmitting(false);
+      setMessage('Please fix the errors below before submitting.');
+      return;
+    }
 
     try {
       // 处理坐标数据
@@ -113,27 +174,38 @@ function AdminPage() {
           <div className='grid grid-cols-2 gap-4'>
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>
-                Pet Name
+                Pet Name <span className='text-red-500'>*</span>
               </label>
               <input
                 type='text'
                 name='name'
                 value={formData.name}
                 onChange={handleInputChange}
-                className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                  errors.name
+                    ? 'border-red-500 focus:ring-red-500'
+                    : 'border-gray-300 focus:ring-blue-500'
+                }`}
                 required
               />
+              {errors.name && (
+                <p className='text-red-500 text-xs mt-1'>{errors.name}</p>
+              )}
             </div>
 
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>
-                Species
+                Species <span className='text-red-500'>*</span>
               </label>
               <select
                 name='species'
                 value={formData.species}
                 onChange={handleInputChange}
-                className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                  errors.species
+                    ? 'border-red-500 focus:ring-red-500'
+                    : 'border-gray-300 focus:ring-blue-500'
+                }`}
                 required
               >
                 <option value=''>Select Species</option>
@@ -142,6 +214,9 @@ function AdminPage() {
                 <option value='bird'>Bird</option>
                 <option value='other'>Other</option>
               </select>
+              {errors.species && (
+                <p className='text-red-500 text-xs mt-1'>{errors.species}</p>
+              )}
             </div>
           </div>
 
@@ -225,17 +300,24 @@ function AdminPage() {
 
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-1'>
-              Status
+              Status <span className='text-red-500'>*</span>
             </label>
             <select
               name='status'
               value={formData.status}
               onChange={handleInputChange}
-              className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                errors.status
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-blue-500'
+              }`}
             >
               <option value='lost'>Lost</option>
               <option value='found'>Found</option>
             </select>
+            {errors.status && (
+              <p className='text-red-500 text-xs mt-1'>{errors.status}</p>
+            )}
           </div>
 
           <div>
@@ -261,7 +343,7 @@ function AdminPage() {
             <div className='grid grid-cols-2 gap-4'>
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Location Name
+                  Location Name <span className='text-red-500'>*</span>
                 </label>
                 <AddressAutocomplete
                   value={formData.location_name}
@@ -270,23 +352,38 @@ function AdminPage() {
                   }
                   onLocationSelect={handleLocationSelect}
                   placeholder='Start typing address...'
+                  className={errors.location_name ? 'border-red-500' : ''}
                 />
                 <p className='text-xs text-gray-500 mt-1'>
                   Start typing to see address suggestions
                 </p>
+                {errors.location_name && (
+                  <p className='text-red-500 text-xs mt-1'>
+                    {errors.location_name}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Last Seen Date
+                  Last Seen Date <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='datetime-local'
                   name='last_seen_at'
                   value={formData.last_seen_at}
                   onChange={handleInputChange}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                    errors.last_seen_at
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:ring-blue-500'
+                  }`}
                 />
+                {errors.last_seen_at && (
+                  <p className='text-red-500 text-xs mt-1'>
+                    {errors.last_seen_at}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -310,19 +407,31 @@ function AdminPage() {
             <h3 className='text-lg font-semibold text-gray-900 mb-3'>
               Contact Information
             </h3>
+            <p className='text-sm text-gray-600 mb-4'>
+              At least one contact method (email or phone) is required
+            </p>
 
             <div className='grid grid-cols-3 gap-4'>
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Contact Name
+                  Contact Name <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='text'
                   name='contact_name'
                   value={formData.contact_name}
                   onChange={handleInputChange}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                    errors.contact_name
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:ring-blue-500'
+                  }`}
                 />
+                {errors.contact_name && (
+                  <p className='text-red-500 text-xs mt-1'>
+                    {errors.contact_name}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -334,8 +443,17 @@ function AdminPage() {
                   name='contact_phone'
                   value={formData.contact_phone}
                   onChange={handleInputChange}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                    errors.contact_phone
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:ring-blue-500'
+                  }`}
                 />
+                {errors.contact_phone && (
+                  <p className='text-red-500 text-xs mt-1'>
+                    {errors.contact_phone}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -347,10 +465,22 @@ function AdminPage() {
                   name='contact_email'
                   value={formData.contact_email}
                   onChange={handleInputChange}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                    errors.contact_email
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:ring-blue-500'
+                  }`}
                 />
+                {errors.contact_email && (
+                  <p className='text-red-500 text-xs mt-1'>
+                    {errors.contact_email}
+                  </p>
+                )}
               </div>
             </div>
+            {errors.contact && (
+              <p className='text-red-500 text-xs mt-2'>{errors.contact}</p>
+            )}
           </div>
 
           <div className='pt-6'>
