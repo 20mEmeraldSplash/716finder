@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AddressAutocomplete from '../components/AddressAutocomplete';
+import ImageUpload from '../components/ImageUpload';
 import { addPet } from '../services/petService';
 
 function AdminPage() {
@@ -43,6 +44,13 @@ function AdminPage() {
       longitude: locationData.longitude,
       location_name: locationData.location_name,
       zipcode: locationData.zipcode,
+    }));
+  };
+
+  const handleImagesChange = newImages => {
+    setFormData(prev => ({
+      ...prev,
+      photos: newImages,
     }));
   };
 
@@ -112,12 +120,16 @@ function AdminPage() {
     }
 
     try {
+      // 处理图片数据 - 提取URL
+      const photoUrls = formData.photos.map(photo => photo.url);
+
       // 处理坐标数据
       const petData = {
         ...formData,
         latitude: formData.latitude ? parseFloat(formData.latitude) : null,
         longitude: formData.longitude ? parseFloat(formData.longitude) : null,
         last_seen_at: formData.last_seen_at || new Date().toISOString(),
+        photos: photoUrls,
       };
 
       await addPet(petData);
@@ -332,6 +344,20 @@ function AdminPage() {
               className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder='Describe the pet, any special markings, collar, etc.'
             />
+          </div>
+
+          <div>
+            <label className='block text-sm font-medium text-gray-700 mb-1'>
+              Photos
+            </label>
+            <ImageUpload
+              images={formData.photos}
+              onImagesChange={handleImagesChange}
+              maxImages={5}
+            />
+            <p className='text-sm text-gray-500 mt-1'>
+              Upload photos to help identify the pet (optional but recommended)
+            </p>
           </div>
 
           {/* 位置信息 */}
