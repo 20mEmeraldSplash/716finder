@@ -3,7 +3,7 @@ import { getAllPets } from '../services/petService';
 import LostFoundCard from './LostFoundCard';
 import PetDetailCard from './PetDetailCard';
 
-function LostFoundCardList({ selectedItemId, onItemSelect }) {
+function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -136,13 +136,15 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
 
   return (
     <div className='space-y-4'>
-      {/* 统计信息 */}
-      <div className='flex items-center justify-between mb-4'>
-        <h2 className='text-lg font-semibold text-gray-900'>
-          Lost & Found Items
-        </h2>
-        <span className='text-sm text-gray-500'>{items.length} items</span>
-      </div>
+      {/* 统计信息 - 只在非手机模式或手机模式下显示 */}
+      {!isMobile && (
+        <div className='flex items-center justify-between mb-4'>
+          <h2 className='text-lg font-semibold text-gray-900'>
+            Lost & Found Items
+          </h2>
+          <span className='text-sm text-gray-500'>{items.length} items</span>
+        </div>
+      )}
 
       {/* 详细卡片 */}
       {selectedPet && (
@@ -151,8 +153,8 @@ function LostFoundCardList({ selectedItemId, onItemSelect }) {
         </div>
       )}
 
-      {/* 卡片列表 - 网格布局 */}
-      <div className='grid grid-cols-2 gap-4'>
+      {/* 卡片列表 - 根据设备类型调整布局 */}
+      <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`}>
         {items.map(item => (
           <LostFoundCard
             key={item.id}
