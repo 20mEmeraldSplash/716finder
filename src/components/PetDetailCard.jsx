@@ -17,12 +17,31 @@ function PetDetailCard({ pet, onClose }) {
   };
 
   return (
-    <div className='bg-white rounded-lg shadow-lg border border-gray-200 mb-4'>
-      {/* 关闭按钮 */}
-      <div className='flex justify-end p-4 pb-0'>
+    <div className='bg-white'>
+      {/* 返回按钮 */}
+      <div className='flex items-center justify-between mb-4'>
+        <div
+          onClick={onClose}
+          className='flex items-center text-gray-600 hover:text-gray-800 cursor-pointer'
+        >
+          <svg
+            className='w-4 h-4 mr-2'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M15 19l-7-7 7-7'
+            />
+          </svg>
+          Back to List
+        </div>
         <button
           onClick={onClose}
-          className='text-gray-400 hover:text-gray-600 transition-colors'
+          className='text-gray-400 hover:text-gray-600 transition-colors p-1'
         >
           <svg
             className='w-5 h-5'
@@ -41,12 +60,12 @@ function PetDetailCard({ pet, onClose }) {
       </div>
 
       {/* 图片区域 */}
-      <div className='relative h-48 bg-gray-100 rounded-t-lg overflow-hidden mx-4 mb-4'>
+      <div className='relative h-48 bg-gray-100 overflow-hidden mb-4'>
         {pet.photos && pet.photos.length > 0 ? (
           <img
             src={pet.photos[0]}
             alt={pet.name}
-            className='w-full h-full object-cover rounded-lg'
+            className='w-full h-full object-cover'
             onError={e => {
               e.target.style.display = 'none';
               e.target.nextSibling.style.display = 'flex';
@@ -99,7 +118,7 @@ function PetDetailCard({ pet, onClose }) {
       </div>
 
       {/* 内容区域 */}
-      <div className='px-6 pb-6'>
+      <div className='px-4 pb-4'>
         {/* 标题和基本信息 */}
         <div className='mb-4'>
           <h2 className='text-xl font-bold text-gray-900 mb-2'>{pet.name}</h2>

@@ -8,6 +8,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedPet, setSelectedPet] = useState(null);
+  const [showDetail, setShowDetail] = useState(false);
   const detailCardRef = useRef(null);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
     // 找到选中的宠物
     const pet = items.find(item => item.id === itemId);
     setSelectedPet(pet);
+    setShowDetail(true);
 
     // 同时触发地图聚焦
     onItemSelect(itemId);
@@ -63,6 +65,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
 
   const handleCloseDetail = () => {
     setSelectedPet(null);
+    setShowDetail(false);
   };
 
   if (isLoading) {
@@ -134,6 +137,16 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
     );
   }
 
+  // 如果显示详细模式，只显示详细卡片
+  if (showDetail && selectedPet) {
+    return (
+      <div ref={detailCardRef}>
+        <PetDetailCard pet={selectedPet} onClose={handleCloseDetail} />
+      </div>
+    );
+  }
+
+  // 否则显示列表模式
   return (
     <div className='space-y-4'>
       {/* 统计信息 - 只在非手机模式或手机模式下显示 */}
@@ -143,13 +156,6 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
             Lost & Found Items
           </h2>
           <span className='text-sm text-gray-500'>{items.length} items</span>
-        </div>
-      )}
-
-      {/* 详细卡片 */}
-      {selectedPet && (
-        <div ref={detailCardRef}>
-          <PetDetailCard pet={selectedPet} onClose={handleCloseDetail} />
         </div>
       )}
 
