@@ -120,7 +120,7 @@ function AdminPage() {
     }
 
     try {
-      // 处理图片数据 - 提取URL
+      // 处理图片数据 - 提取URL（现在已经是URL了）
       const photoUrls = formData.photos.map(photo => photo.url);
 
       // 处理坐标数据
@@ -354,6 +354,7 @@ function AdminPage() {
               images={formData.photos}
               onImagesChange={handleImagesChange}
               maxImages={5}
+              petId={`pet_${Date.now()}`}
             />
             <p className='text-sm text-gray-500 mt-1'>
               Upload photos to help identify the pet (optional but recommended)

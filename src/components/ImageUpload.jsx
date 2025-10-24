@@ -1,10 +1,17 @@
 import { useRef, useState } from 'react';
+import { uploadImage } from '../services/imageService';
 
-function ImageUpload({ images, onImagesChange, maxImages = 5 }) {
+function ImageUpload({
+  images,
+  onImagesChange,
+  maxImages = 5,
+  petId = 'temp',
+}) {
   const [dragOver, setDragOver] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
 
-  const handleFileSelect = files => {
+  const handleFileSelect = async files => {
     const newImages = Array.from(files).slice(0, maxImages - images.length);
 
     // 验证文件类型
@@ -21,20 +28,34 @@ function ImageUpload({ images, onImagesChange, maxImages = 5 }) {
       return true;
     });
 
-    // 转换为base64或URL
-    validImages.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const newImage = {
-          id: Date.now() + Math.random(),
-          file: file,
-          url: e.target.result,
-          name: file.name,
-        };
-        onImagesChange([...images, newImage]);
-      };
-      reader.readAsDataURL(file);
-    });
+    if (validImages.length === 0) return;
+
+    setUploading(true);
+
+    try {
+      // 上传到Supabase Storage
+      const uploadPromises = validImages.map(async file => {
+        const result = await uploadImage(file, petId);
+        if (result.success) {
+          return {
+            id: Date.now() + Math.random(),
+            url: result.url,
+            name: file.name,
+            fileName: result.fileName,
+          };
+        } else {
+          throw new Error(result.error);
+        }
+      });
+
+      const uploadedImages = await Promise.all(uploadPromises);
+      onImagesChange([...images, ...uploadedImages]);
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert(`Upload failed: ${error.message}`);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleDrop = e => {
@@ -95,14 +116,24 @@ function ImageUpload({ images, onImagesChange, maxImages = 5 }) {
           />
         </svg>
         <div className='mt-2'>
-          <button
-            type='button'
-            onClick={openFileDialog}
-            className='text-blue-600 hover:text-blue-500 font-medium'
-          >
-            Click to upload
-          </button>
-          <span className='text-gray-500'> or drag and drop</span>
+          {uploading ? (
+            <div className='flex items-center justify-center'>
+              <div className='animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600'></div>
+              <span className='ml-2 text-blue-600'>Uploading...</span>
+            </div>
+          ) : (
+            <>
+              <button
+                type='button'
+                onClick={openFileDialog}
+                className='text-blue-600 hover:text-blue-500 font-medium'
+                disabled={uploading}
+              >
+                Click to upload
+              </button>
+              <span className='text-gray-500'> or drag and drop</span>
+            </>
+          )}
         </div>
         <p className='text-xs text-gray-500 mt-1'>
           PNG, JPG, GIF up to 5MB each (max {maxImages} images)
