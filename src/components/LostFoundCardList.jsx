@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllPets } from '../services/petService';
 import LostFoundCard from './LostFoundCard';
 import PetDetailCard from './PetDetailCard';
@@ -9,7 +9,6 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
   const [error, setError] = useState('');
   const [selectedPet, setSelectedPet] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
-  const detailCardRef = useRef(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -27,19 +26,6 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
 
     fetchItems();
   }, []);
-
-  // 当详细卡片显示时，滚动到卡片位置
-  useEffect(() => {
-    if (selectedPet && detailCardRef.current) {
-      // 稍微延迟以确保DOM已更新
-      setTimeout(() => {
-        detailCardRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }, 100);
-    }
-  }, [selectedPet]);
 
   // 当selectedItemId改变时，更新selectedPet
   useEffect(() => {
@@ -140,7 +126,7 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
   // 如果显示详细模式，只显示详细卡片
   if (showDetail && selectedPet) {
     return (
-      <div ref={detailCardRef}>
+      <div>
         <PetDetailCard pet={selectedPet} onClose={handleCloseDetail} />
       </div>
     );
