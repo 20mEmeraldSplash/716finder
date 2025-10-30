@@ -27,15 +27,17 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
     fetchItems();
   }, []);
 
-  // 当selectedItemId改变时，更新selectedPet
+  // 当selectedItemId改变时，更新selectedPet并显示详情
   useEffect(() => {
     if (selectedItemId && items.length > 0) {
       const pet = items.find(item => item.id === selectedItemId);
       if (pet) {
         setSelectedPet(pet);
+        setShowDetail(true); // 自动显示详情
       }
     } else if (!selectedItemId) {
       setSelectedPet(null);
+      setShowDetail(false); // 清除详情显示
     }
   }, [selectedItemId, items]);
 
