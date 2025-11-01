@@ -54,6 +54,8 @@ function LostFoundCardList({ selectedItemId, onItemSelect, isMobile = false }) {
   const handleCloseDetail = () => {
     setSelectedPet(null);
     setShowDetail(false);
+    // 清除选中状态，同时更新 URL
+    onItemSelect(null);
   };
 
   if (isLoading) {

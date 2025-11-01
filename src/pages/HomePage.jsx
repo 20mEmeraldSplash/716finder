@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import LostFoundCardList from '../components/LostFoundCardList';
 import MapContainer from '../components/MapContainer';
 import SearchBar from '../components/SearchBar';
 
 function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [mapLocation, setMapLocation] = useState({
     latitude: 42.8864,
     longitude: -78.8784,
@@ -12,6 +14,17 @@ function HomePage() {
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showMap, setShowMap] = useState(false);
+
+  // 从 URL 查询参数初始化 selectedItemId
+  useEffect(() => {
+    const itemIdFromURL = searchParams.get('item');
+    if (itemIdFromURL) {
+      setSelectedItemId(itemIdFromURL);
+    } else {
+      // 如果没有 URL 参数，清除选中状态
+      setSelectedItemId(null);
+    }
+  }, [searchParams]);
 
   // 检测屏幕尺寸
   useEffect(() => {
@@ -30,10 +43,22 @@ function HomePage() {
 
   const handleItemSelect = itemId => {
     setSelectedItemId(itemId);
+    // 更新 URL 查询参数，但不刷新页面
+    if (itemId) {
+      setSearchParams({ item: itemId }, { replace: true });
+    } else {
+      setSearchParams({}, { replace: true });
+    }
   };
 
   const handleMarkerClick = itemId => {
     setSelectedItemId(itemId);
+    // 更新 URL 查询参数，但不刷新页面
+    if (itemId) {
+      setSearchParams({ item: itemId }, { replace: true });
+    } else {
+      setSearchParams({}, { replace: true });
+    }
   };
 
   return (
